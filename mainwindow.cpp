@@ -19,7 +19,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_openFileButton_clicked()
 {
     QString FilePath = QFileDialog::getOpenFileName(this,tr("Open Image"),
-                                                    tr("F:/Qt_project/Wear_santa_hat-opencv-qt/Image/"),
+                                                    tr("F:/Qt_project/Wear_santa_hat-opencv-qt/test_image/"),
                                                     tr("Image File(*.bmp *.jpg *.jpeg *.png)"));
     if(FilePath.isNull() || FilePath == "")
     {
@@ -28,8 +28,10 @@ void MainWindow::on_openFileButton_clicked()
         msgBox.exec();
     }
     else
+    {
         qtImage.load(FilePath);
-    processImage(qtImage);
+        processImage(qtImage);
+    }
 }
 
 void MainWindow::processImage(QImage &src)
@@ -38,4 +40,5 @@ void MainWindow::processImage(QImage &src)
     wearMySantaHat.setImage(matImage);
     qtImage = Mat2QImage_with_pointer(wearMySantaHat.outputImage);
     ui->showImageWidget->set_image_with_pointer(&qtImage);
+    qDebug() << wearMySantaHat.facePositionX(0);
 }
