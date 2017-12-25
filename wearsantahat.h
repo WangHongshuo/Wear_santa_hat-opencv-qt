@@ -12,7 +12,8 @@ class WearSantaHat
 public:
     WearSantaHat();
     ~WearSantaHat();
-    void setImage(Mat &src);
+    void putOnMySantaHat(Mat &src);
+    void updateHat(int hat);
     Mat outputImage;
     int faceCount = -1;
     int facePositionX(int faceIndex);
@@ -23,12 +24,13 @@ public:
 private:
     void mainTask(Mat &src);
     void initializeData();
-    void detecteFace(Mat &src, Mat &dst, Mat &facePositionData);
-    void addHat(Mat &src, int hatIndex);
+    void detecteFace(Mat &src, Mat &facePositionData);
+    void addHat(Mat &src, Mat &dst, int hatIndex);
     Mat *sentaHat = new Mat[6];
     Mat inputImage;
     Mat grayImage;
     Mat facePositionData;
+    int hatIndex = 0;
 
     CascadeClassifier faceDetecter;
 };

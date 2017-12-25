@@ -20,12 +20,16 @@ public:
 private slots:
     void on_openFileButton_clicked();
 
+    void on_selectHatIndex_activated(int index);
+
 private:
     void processImage(QImage &src);
+    void showProcessedImage(Mat &src);
     Ui::MainWindow *ui;
     QImage qtImage;
     cv::Mat matImage;
     WearSantaHat wearMySantaHat;
+    bool isImageProcessed = false;
 
 };
 

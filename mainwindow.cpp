@@ -37,8 +37,22 @@ void MainWindow::on_openFileButton_clicked()
 void MainWindow::processImage(QImage &src)
 {
     matImage = QImage2Mat_with_data(src);
-    wearMySantaHat.setImage(matImage);
-    qtImage = Mat2QImage_with_pointer(wearMySantaHat.outputImage);
+    wearMySantaHat.putOnMySantaHat(matImage);
+    isImageProcessed = true;
+    showProcessedImage(wearMySantaHat.outputImage);
+}
+
+void MainWindow::showProcessedImage(Mat &src)
+{
+    qtImage = Mat2QImage_with_pointer(src);
     ui->showImageWidget->set_image_with_pointer(&qtImage);
-    qDebug() << wearMySantaHat.facePositionX(0);
+}
+
+void MainWindow::on_selectHatIndex_activated(int index)
+{
+    if(isImageProcessed)
+    {
+        wearMySantaHat.updateHat(index);
+        showProcessedImage(wearMySantaHat.outputImage);
+    }
 }
