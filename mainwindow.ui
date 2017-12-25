@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="OpenFileButton">
+   <widget class="QPushButton" name="openFileButton">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -27,7 +27,7 @@
      <string>openfile</string>
     </property>
    </widget>
-   <widget class="ImageWidget" name="ShowImageWidget" native="true">
+   <widget class="ImageWidget" name="showImageWidget" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>

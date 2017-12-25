@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <opencv2/core.hpp>
+#include "wearsantahat.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,11 +18,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_OpenFileButton_clicked();
+    void on_openFileButton_clicked();
 
 private:
+    void processImage(QImage &src);
     Ui::MainWindow *ui;
-    QImage InputImage;
+    QImage qtImage;
+    cv::Mat matImage;
+    WearSantaHat wearMySantaHat;
+
 };
 
 #endif // MAINWINDOW_H

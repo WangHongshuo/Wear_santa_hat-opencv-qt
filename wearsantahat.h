@@ -11,13 +11,16 @@ class WearSantaHat
 {
 public:
     WearSantaHat();
-    void setImage(Mat &input);
+    void setImage(Mat &src);
+    Mat outputImage;
 
 private:
-    void mainTask(Mat &input);
-    void initializationData();
+    void mainTask(Mat &src);
+    void initializeData();
+    void detecteFace(Mat &src);
     Mat inputImage;
-    Mat outputImage;
+    Mat grayImage;
+
     CascadeClassifier faceDetecter;
 };
 

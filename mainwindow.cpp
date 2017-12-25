@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ImageWidget.h"
+#include "mat_qimage_convert.h"
 #include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -15,7 +16,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_OpenFileButton_clicked()
+void MainWindow::on_openFileButton_clicked()
 {
     QString FilePath = QFileDialog::getOpenFileName(this,tr("Open Image"),
                                                     tr("F:/Qt_project/Wear_santa_hat-opencv-qt/Image/"),
@@ -27,6 +28,14 @@ void MainWindow::on_OpenFileButton_clicked()
         msgBox.exec();
     }
     else
-        InputImage.load(FilePath);
-    ui->ShowImageWidget->set_image_with_pointer(&InputImage);
+        qtImage.load(FilePath);
+    processImage(qtImage);
+}
+
+void MainWindow::processImage(QImage &src)
+{
+    matImage = QImage2Mat_with_data(src);
+    wearMySantaHat.setImage(matImage);
+    qtImage = Mat2QImage_with_pointer(wearMySantaHat.outputImage);
+    ui->showImageWidget->set_image_with_pointer(&qtImage);
 }
