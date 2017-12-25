@@ -45,7 +45,7 @@ void WearSantaHat::detecteFace(Mat &src)
 {
     outputImage = inputImage;
     std::vector<Rect> faces;
-    faceDetecter.detectMultiScale(src,faces,1.2,6,0,Size(0,0));
+    faceDetecter.detectMultiScale(src,faces,1.2,3,0,Size(0,0));
     if(faces.size()>0)
     {
         for(int i=0; i<static_cast<int>(faces.size()); i++)

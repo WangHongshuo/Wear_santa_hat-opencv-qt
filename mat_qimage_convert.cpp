@@ -1,39 +1,6 @@
 #include "mat_qimage_convert.h"
 
 
-QImage Mat2QImage_with_pointer(cv::Mat &mat)
-{
-    // 单通道
-    if(mat.type() == CV_8UC1)
-    {
-        QImage image(mat.data,mat.cols, mat.rows,mat.step, QImage::Format_Indexed8);
-
-        image.setColorCount(256);
-        for(int i = 0; i < 256; i++)
-        {
-            image.setColor(i, qRgb(i, i, i));
-        }
-        return image;
-    }
-    // 3通道
-    else if(mat.type() == CV_8UC3)
-    {
-        cv::cvtColor(mat,mat,CV_BGR2RGB);
-        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
-        return image;
-    }
-    // 4通道
-    else if(mat.type() == CV_8UC4)
-    {
-        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_ARGB32);
-        return image;
-    }
-    else
-    {
-        return QImage();
-    }
-}
-
 cv::Mat QImage2Mat_with_pointer(QImage &image)
 {
     cv::Mat mat;
@@ -89,6 +56,41 @@ QImage Mat2QImage_with_data(cv::Mat &mat)
         return QImage();
     }
 }
+
+
+QImage Mat2QImage_with_pointer(cv::Mat &mat)
+{
+    // 单通道
+    if(mat.type() == CV_8UC1)
+    {
+        QImage image(mat.data,mat.cols, mat.rows,mat.step, QImage::Format_Indexed8);
+
+        image.setColorCount(256);
+        for(int i = 0; i < 256; i++)
+        {
+            image.setColor(i, qRgb(i, i, i));
+        }
+        return image;
+    }
+    // 3通道
+    else if(mat.type() == CV_8UC3)
+    {
+        cv::cvtColor(mat,mat,CV_BGR2RGB);
+        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
+        return image;
+    }
+    // 4通道
+    else if(mat.type() == CV_8UC4)
+    {
+        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_ARGB32);
+        return image;
+    }
+    else
+    {
+        return QImage();
+    }
+}
+
 cv::Mat QImage2Mat_with_data(QImage &image)
 {
     cv::Mat mat;
