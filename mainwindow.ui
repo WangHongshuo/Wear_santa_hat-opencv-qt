@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
-    <height>443</height>
+    <width>750</width>
+    <height>707</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="OpenFileButton">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>320</y>
+      <x>660</x>
+      <y>610</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,10 +30,10 @@
    <widget class="ImageWidget" name="ShowImageWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>19</x>
-      <y>29</y>
-      <width>341</width>
-      <height>271</height>
+      <x>10</x>
+      <y>0</y>
+      <width>640</width>
+      <height>640</height>
      </rect>
     </property>
    </widget>
@@ -43,7 +43,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>519</width>
+     <width>750</width>
      <height>25</height>
     </rect>
    </property>

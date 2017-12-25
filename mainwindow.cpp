@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_OpenFileButton_clicked()
 {
     QString FilePath = QFileDialog::getOpenFileName(this,tr("Open Image"),
-                                                    tr("F:/"),
+                                                    tr("F:/Qt_project/Wear_santa_hat-opencv-qt/Image/"),
                                                     tr("Image File(*.bmp *.jpg *.jpeg *.png)"));
     if(FilePath.isNull() || FilePath == "")
     {
