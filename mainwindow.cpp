@@ -3,6 +3,7 @@
 #include "ImageWidget.h"
 #include "mat_qimage_convert.h"
 #include <QFileDialog>
+#include <QTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,7 +38,10 @@ void MainWindow::on_openFileButton_clicked()
 void MainWindow::processImage(QImage &src)
 {
     matImage = QImage2Mat_with_data(src);
+    QTime a;
+    a.start();
     wearMySantaHat.putOnMySantaHat(matImage);
+    qDebug() << a.elapsed();
     isImageProcessed = true;
     showProcessedImage(wearMySantaHat.outputImage);
 }

@@ -20,6 +20,7 @@ public:
     int facePositionY(int faceIndex);
     int faceWidth(int faceIndex);
     int faceHeight(int faceIndex);
+    void selectHat(int index);
 
 private:
     void mainTask(Mat &src);
@@ -31,7 +32,7 @@ private:
     Mat grayImage;
     Mat facePositionData;
     int hatIndex = 0;
-
+    bool isInitializationSuccess = true;
     CascadeClassifier faceDetecter;
 };
 
