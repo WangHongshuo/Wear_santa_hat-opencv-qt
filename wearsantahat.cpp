@@ -156,28 +156,27 @@ void WearSantaHat::addHat(Mat &src, Mat &dst, int hatIndex)
     dst = src.clone();
     if(faceCount > 0)
     {
-        Mat hat = sentaHat[hatIndex].clone();
         for(int i=0; i<faceCount; i++)
         {
+            Mat hat = sentaHat[hatIndex].clone();
             resize(hat,hat,Size(faceWidth(i),faceWidth(i)),INTER_CUBIC);
 
             Mat BGRAChannels[4];
             split(hat,BGRAChannels);
             Mat hatMask = BGRAChannels[3];
+
             // hat是4通道图片，如果输入图片为3或1通道，转换一下
             if(src.channels() == 3)
             {
-                QTime a;
-                a.start();
                 Mat temp[3] = {BGRAChannels[0],BGRAChannels[1],BGRAChannels[2]};
                 merge(temp,3,hat);
-                qDebug() << a.elapsed();
             }
             else if (src.channels() == 1)
             {
                 Mat temp[4] = {src, src, src, src};
                 merge(temp,4,dst);
             }
+
             // 防止越界
             x = facePositionX(i);
             y = facePositionY(i) - hat.rows;
