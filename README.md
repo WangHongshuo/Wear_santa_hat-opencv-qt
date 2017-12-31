@@ -1,5 +1,5 @@
-# Wear santa hat based on opencv and qt   
-
+# Wear Santa Hat 
+- This project based on opencv and qt.
 ## Introduction: ##
 It was very hot recently, so I decided to write one with the help of OpenCV face detecter and trained model data (haarcascade_frontalface_alt2.xml). The face detecter in OpenCV occupies a lot of memory, but it's hard for me to make a face detecter by myself. I will make a simple one when I'm free.      
 
