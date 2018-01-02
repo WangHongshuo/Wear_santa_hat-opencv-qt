@@ -34,6 +34,8 @@ private:
     int hatIndex = 0;
     bool isInitializationSuccess = true;
     CascadeClassifier faceDetecter;
+    float hatScale[6] = {1.6f,1.3f,1.4f,1.5f,1.3f,1.6f};
+    float hatYScale[6] = {1.0f,1.0f,1.0f,1.0f,1.0f,0.7f};
 };
 
 #endif // WEARSANTAHAT_H

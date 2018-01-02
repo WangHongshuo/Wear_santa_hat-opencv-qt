@@ -11,7 +11,13 @@ It was very hot recently, so I decided to write one with the help of OpenCV face
 
 ## Change Log: ##
 
- - 2017.12.25
+- 2018.1.2:     
+
+Updated wearsentahat.cpp and wearsentahat.hpp synchronously.
+
+同步更新wearsentahat.cpp和wearsentahat.hpp。
+
+- 2017.12.25:
 
 Finished basic function and UI.       
 
