@@ -1,89 +1,94 @@
 #include "mat_qimage_convert.h"
+#include <QDebug>
 
-
-cv::Mat QImage2Mat_with_pointer(QImage &image)
+// cv::Mat::data and QImage::bits() are the same
+QImage Mat2QImage_with_pointer(cv::Mat &src)
 {
-    cv::Mat mat;
-//    qDebug() << image.format();
-    switch(image.format())
+    // 1 channel
+    if(src.type() == CV_8UC1)
+    {
+        QImage dst(src.data,src.cols, src.rows,src.step, QImage::Format_Indexed8);
+
+        dst.setColorCount(256);
+        for(int i = 0; i < 256; i++)
+        {
+            dst.setColor(i, qRgb(i, i, i));
+        }
+        return dst;
+    }
+    // 3 channels
+    else if(src.type() == CV_8UC3)
+    {
+        // warning: pay attention to this:
+        cv::cvtColor(src,src,CV_BGR2RGB);
+        // it will change BRG to RBG in src QImage
+        QImage dst(src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
+        return dst;
+    }
+    // 4 channels
+    else if(src.type() == CV_8UC4)
+    {
+        QImage dst(src.data, src.cols, src.rows, src.step, QImage::Format_ARGB32);
+        return dst;
+    }
+    else
+    {
+        return QImage();
+    }
+}
+
+// cv::Mat::data and QImage::bits() are the same
+cv::Mat QImage2Mat_with_pointer(QImage &src)
+{
+    cv::Mat dst;
+//    qDebug() << src.format();
+    switch(src.format())
     {
     case QImage::Format_ARGB32:
     case QImage::Format_RGB32:
     case QImage::Format_ARGB32_Premultiplied:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
+        dst = cv::Mat(src.height(), src.width(), CV_8UC4, (void*)src.constBits(), src.bytesPerLine());
         break;
     case QImage::Format_RGB888:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC3, (void*)image.constBits(), image.bytesPerLine());
-        cv::cvtColor(mat, mat, CV_BGR2RGB);
+        dst = cv::Mat(src.height(), src.width(), CV_8UC3, (void*)src.constBits(), src.bytesPerLine());
+        // warning: pay attention to this:
+        cv::cvtColor(dst, dst, CV_BGR2RGB);
+        // it will change BRG to RBG in src QImage
         break;
     case QImage::Format_Indexed8:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*)image.constBits(), image.bytesPerLine());
+        dst = cv::Mat(src.height(), src.width(), CV_8UC1, (void*)src.constBits(), src.bytesPerLine());
         break;
     }
-    return mat;
+    return dst;
 }
 
-QImage Mat2QImage_with_data(cv::Mat &mat)
+// cv::Mat::data and QImage::bits() are different
+QImage Mat2QImage_with_data(cv::Mat &src)
 {
-    // 单通道
-    if(mat.type() == CV_8UC1)
+    // 1 channel
+    if(src.type() == CV_8UC1)
     {
-        QImage image(mat.data,mat.cols, mat.rows,mat.step, QImage::Format_Indexed8);
-
-        image.setColorCount(256);
+        QImage dst(src.data,src.cols, src.rows,src.step, QImage::Format_Indexed8);
+        dst.setColorCount(256);
         for(int i = 0; i < 256; i++)
         {
-            image.setColor(i, qRgb(i, i, i));
+            dst.setColor(i, qRgb(i, i, i));
         }
-        return image.copy();
+        return dst.copy();
     }
-    // 3通道
-    else if(mat.type() == CV_8UC3)
+    // 3 channels
+    else if(src.type() == CV_8UC3)
     {
         cv::Mat temp;
-        cv::cvtColor(mat,temp,CV_BGR2RGB);
-        QImage image(temp.data, temp.cols, temp.rows, temp.step, QImage::Format_RGB888);
-        return image.copy();
+        cv::cvtColor(src,temp,CV_BGR2RGB);
+        QImage dst(temp.data, temp.cols, temp.rows, temp.step, QImage::Format_RGB888);
+        return dst.copy();
     }
-    // 4通道
-    else if(mat.type() == CV_8UC4)
+    // 4 channels
+    else if(src.type() == CV_8UC4)
     {
-        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_ARGB32);
-        return image.copy();
-    }
-    else
-    {
-        return QImage();
-    }
-}
-
-
-QImage Mat2QImage_with_pointer(cv::Mat &mat)
-{
-    // 单通道
-    if(mat.type() == CV_8UC1)
-    {
-        QImage image(mat.data,mat.cols, mat.rows,mat.step, QImage::Format_Indexed8);
-
-        image.setColorCount(256);
-        for(int i = 0; i < 256; i++)
-        {
-            image.setColor(i, qRgb(i, i, i));
-        }
-        return image;
-    }
-    // 3通道
-    else if(mat.type() == CV_8UC3)
-    {
-        cv::cvtColor(mat,mat,CV_BGR2RGB);
-        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888);
-        return image;
-    }
-    // 4通道
-    else if(mat.type() == CV_8UC4)
-    {
-        QImage image(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_ARGB32);
-        return image;
+        QImage dst(src.data, src.cols, src.rows, src.step, QImage::Format_ARGB32);
+        return dst.copy();
     }
     else
     {
@@ -91,24 +96,34 @@ QImage Mat2QImage_with_pointer(cv::Mat &mat)
     }
 }
 
-cv::Mat QImage2Mat_with_data(QImage &image)
+// cv::Mat::data and QImage::bits() are different
+cv::Mat QImage2Mat_with_data(QImage &src)
 {
-    cv::Mat mat;
-//    qDebug() << image.format();
-    switch(image.format())
+    cv::Mat dst;
+//    qDebug() << src.format();
+    switch(src.format())
     {
+    // 4 channels
     case QImage::Format_ARGB32:
     case QImage::Format_RGB32:
     case QImage::Format_ARGB32_Premultiplied:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
-        break;
-    case QImage::Format_RGB888:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC3, (void*)image.constBits(), image.bytesPerLine());
-        cv::cvtColor(mat, mat, CV_BGR2RGB);
-        break;
-    case QImage::Format_Indexed8:
-        mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*)image.constBits(), image.bytesPerLine());
-        break;
+    {
+        dst = cv::Mat(src.height(), src.width(), CV_8UC4, (void*)src.constBits(), src.bytesPerLine());
+        return dst.clone();
     }
-    return mat.clone();
+    // 3 channels
+    case QImage::Format_RGB888:
+    {
+        dst = cv::Mat(src.height(), src.width(), CV_8UC3, (void*)src.constBits(), src.bytesPerLine());
+        cv::Mat dstTemp;
+        cv::cvtColor(dst, dstTemp, CV_BGR2RGB);
+        return  dstTemp;
+    }
+    // 1 channel
+    case QImage::Format_Indexed8:
+    {
+        dst = cv::Mat(src.height(), src.width(), CV_8UC1, (void*)src.constBits(), src.bytesPerLine());
+        return dst.clone();
+    }
+    }
 }

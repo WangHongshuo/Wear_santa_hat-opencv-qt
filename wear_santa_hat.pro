@@ -41,7 +41,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-INCLUDEPATH += D:/opencv3.3.1/opencv_use/include\
-               D:/opencv3.3.1/opencv_use/include/opencv\
-               D:/opencv3.3.1/opencv_use/include/opencv2
-LIBS += -L D:/opencv3.3.1/opencv_use/lib/libopencv_*.a
+INCLUDEPATH += D:/opencv3.4/opencv_use/include\
+               D:/opencv3.4/opencv_use/include/opencv\
+               D:/opencv3.4/opencv_use/include/opencv2
+LIBS += -L D:/opencv3.4/opencv_use/lib/libopencv_*.a
