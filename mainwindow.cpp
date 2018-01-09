@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ImageWidget.h"
-#include "mat_qimage_convert.h"
+#include "QImageMatConvert/mat_qimage_convert.h"
+#include "ImageWidget-Qt/ImageWidget.h"
 #include <QFileDialog>
 #include <QTime>
 

@@ -11,7 +11,13 @@ It was very hot recently, so I decided to write one with the help of OpenCV face
 
 ## Change Log: ##
 
-- 2018.1.2:     
+- 2018.01.09:     
+ 
+Set `ImageWidget` and `mat_qimage_convert` to submodule.     
+
+将 `ImageWidget` 和 `mat_qimage_convert` 设置为子模块。
+
+- 2018.01.02:     
 
 Updated wearsentahat.cpp and wearsentahat.hpp synchronously.
 
