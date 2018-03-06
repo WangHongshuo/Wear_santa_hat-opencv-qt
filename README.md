@@ -7,7 +7,7 @@ It was very hot recently, so I decided to write one with the help of OpenCV face
 
 ## Screenshots: ##
 
-![img](https://github.com/WangHongshuo/Wear_santa_hat-opencv-qt/blob/master/README/Demo.gif) 
+![img](https://github.com/WangHongshuo/Readme_Images_Repository/blob/master/Wear_santa_hat-opencv-qt/Demo.gif) 
 
 ## Change Log: ##
 
